@@ -1,0 +1,10 @@
+{
+  "item.soph_accel.basic_accelerator_upgrade": "Basic Accelerator Upgrade",
+  "item.soph_accel.iron_accelerator_upgrade": "Iron Accelerator Upgrade",
+  "item.soph_accel.gold_accelerator_upgrade": "Gold Accelerator Upgrade",
+  "item.soph_accel.diamond_accelerator_upgrade": "Diamond Accelerator Upgrade",
+  "item.soph_accel.accelerator_upgrade.tooltip": "Accelerates cooker upgrades in the same backpack.",
+  "item.soph_accel.accelerator_upgrade.stats": "Every %s ticks: advances cooking by up to %s ticks.",
+  "item.soph_accel.accelerator_upgrade.accel_fuel": "This accelerator also makes fuel run out faster.",
+  "error.soph_accel.accelerator_exists": "Only one accelerator upgrade can be installed in a backpack."
+}

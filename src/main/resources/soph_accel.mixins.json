@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.vomiter.soph_accel.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "CookingLogicAccessor",
+    "compat.FarmerCookingPotAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MRM",
+    "RUR",
+    "MRM"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "minecraft:gold_block"
+    },
+    "U": {
+      "item": "soph_accel:iron_storage_accelerator_upgrade"
+    }
+  },
+  "result": {
+    "item": "soph_accel:gold_accelerator_upgrade"
+  }
+}

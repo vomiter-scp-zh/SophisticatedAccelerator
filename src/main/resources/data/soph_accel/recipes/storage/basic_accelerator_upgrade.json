@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MCM",
+    "RUR",
+    "MRM"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:clock"
+    },
+    "M": {
+      "item": "minecraft:ender_eye"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "U": {
+      "item": "sophisticatedstorage:upgrade_base"
+    }
+  },
+  "result": {
+    "item": "soph_accel:basic_accelerator_upgrade"
+  }
+}

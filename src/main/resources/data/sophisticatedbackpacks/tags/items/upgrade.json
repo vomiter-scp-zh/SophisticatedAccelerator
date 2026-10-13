@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "soph_accel:basic_accelerator_upgrade",
+    "soph_accel:iron_accelerator_upgrade",
+    "soph_accel:gold_accelerator_upgrade",
+    "soph_accel:diamond_accelerator_upgrade"
+  ]
+}

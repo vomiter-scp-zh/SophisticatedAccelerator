@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MCM",
+    "RUR",
+    "MRM"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:nether_star"
+    },
+    "M": {
+      "item": "minecraft:diamond"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "U": {
+      "item": "soph_accel:gold_storage_accelerator_upgrade"
+    }
+  },
+  "result": {
+    "item": "soph_accel:diamond_accelerator_upgrade"
+  }
+}
