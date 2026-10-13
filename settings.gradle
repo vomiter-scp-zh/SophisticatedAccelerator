@@ -25,7 +25,6 @@ pluginManagement {
     plugins {
         id "com.vomiter.forge-base" version vomiterPluginVersion
         id "com.vomiter.dev-runtime" version vomiterPluginVersion
-        id "com.vomiter.langmerge" version vomiterPluginVersion
     }
 }
 

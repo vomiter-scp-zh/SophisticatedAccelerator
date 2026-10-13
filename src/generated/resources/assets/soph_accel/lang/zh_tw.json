@@ -1,0 +1,14 @@
+{
+  "error.soph_accel.accelerator_exists": "每個存儲空間只能安裝一個加速器升級。",
+  "item.soph_accel.accelerator_upgrade.accel_fuel": "這個加速升級也會導致燃料更快耗盡",
+  "item.soph_accel.accelerator_upgrade.stats": "每 %s tick，最多縮短 %s tick 的料理等待時間。",
+  "item.soph_accel.accelerator_upgrade.tooltip": "加速同一背包內已註冊加速函式的升級。",
+  "item.soph_accel.basic_accelerator_upgrade": "基礎加速器升級",
+  "item.soph_accel.basic_storage_accelerator_upgrade": "基礎儲物加速器升級",
+  "item.soph_accel.diamond_accelerator_upgrade": "鑽石加速器升級",
+  "item.soph_accel.diamond_storage_accelerator_upgrade": "鑽石儲物加速器升級",
+  "item.soph_accel.gold_accelerator_upgrade": "金加速器升級",
+  "item.soph_accel.gold_storage_accelerator_upgrade": "金儲物加速器升級",
+  "item.soph_accel.iron_accelerator_upgrade": "鐵加速器升級",
+  "item.soph_accel.iron_storage_accelerator_upgrade": "鐵儲物加速器升級"
+}

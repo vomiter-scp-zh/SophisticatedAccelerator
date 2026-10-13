@@ -1,0 +1,8 @@
+{
+  "values": [
+    "soph_accel:basic_storage_accelerator_upgrade",
+    "soph_accel:iron_storage_accelerator_upgrade",
+    "soph_accel:gold_storage_accelerator_upgrade",
+    "soph_accel:diamond_storage_accelerator_upgrade"
+  ]
+}

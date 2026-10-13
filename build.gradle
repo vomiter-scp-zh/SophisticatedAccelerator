@@ -5,7 +5,6 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
     id 'com.vomiter.forge-base' version "0.1.0"
     id 'com.vomiter.dev-runtime' version "0.1.0"
-    id 'com.vomiter.langmerge' version "0.1.0"
 }
 
 vomiterMod {
@@ -15,7 +14,8 @@ vomiterMod {
     // enableDevJar = false
 }
 
-langMerge { modId = mod_id }
+// Datagen output is committed and included in development runs and packaged jars.
+sourceSets.main.resources.srcDir 'src/generated/resources'
 
 version = mod_version
 group = mod_group_id
@@ -96,9 +96,15 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.10'
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
     implementation fg.deobf('curse.maven:sophisticated-core-618298:9151366')
-    implementation fg.deobf('curse.maven:sophisticated-backpacks-422301:9151454')
     implementation fg.deobf('curse.maven:farmers-delight-398521:8765179')
-    implementation fg.deobf("curse.maven:farmers-sophisticated-backpacks-1712728:9088893")
-    implementation fg.deobf("curse.maven:sophisticated-storage-619320:9151530")
+
+    compileOnly fg.deobf("curse.maven:farmers-sophisticated-backpacks-1712728:9088893")
+    compileOnly fg.deobf('curse.maven:sophisticated-backpacks-422301:9151454')
+    compileOnly fg.deobf("curse.maven:sophisticated-storage-619320:9151530")
+
+    //runtimeOnly fg.deobf("curse.maven:farmers-sophisticated-backpacks-1712728:9088893")
+    //runtimeOnly fg.deobf('curse.maven:sophisticated-backpacks-422301:9151454')
+    //runtimeOnly fg.deobf("curse.maven:sophisticated-storage-619320:9151530")
+
 }
 

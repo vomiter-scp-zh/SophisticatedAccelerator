@@ -4,3 +4,6 @@ run/
 out/
 .idea/
 *.iml
+
+# Local datagen cache; generated JSON files are committed.
+src/generated/resources/.cache/
