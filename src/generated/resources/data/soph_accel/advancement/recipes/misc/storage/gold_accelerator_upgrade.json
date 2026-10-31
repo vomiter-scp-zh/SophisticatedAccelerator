@@ -1,13 +1,17 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "sophisticatedstorage"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_previous_upgrade": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "soph_accel:gold_accelerator_upgrade"
-            ]
+            "items": "soph_accel:iron_storage_accelerator_upgrade"
           }
         ]
       },
@@ -15,21 +19,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "soph_accel:backpack/diamond_accelerator_upgrade"
+        "recipe": "soph_accel:storage/gold_accelerator_upgrade"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_previous_upgrade",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_previous_upgrade"
     ]
   ],
   "rewards": {
     "recipes": [
-      "soph_accel:backpack/diamond_accelerator_upgrade"
+      "soph_accel:storage/gold_accelerator_upgrade"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

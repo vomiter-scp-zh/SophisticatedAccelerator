@@ -4,7 +4,7 @@ import com.vomiter.soph_accel.AccelerationRegistry;
 import com.vomiter.soph_accel.AcceleratorTier;
 import com.vomiter.soph_accel.SophisticatedAccelerator;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.p3pp3rf1y.sophisticatedstorage.init.ModItems;
 
 public class StorageCompat {
@@ -23,9 +23,9 @@ public class StorageCompat {
     }
 
     public static void addCreativeTabContents(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey().equals(ModItems.CREATIVE_TAB.getKey())) {
+        if (event.getTab() == ModItems.CREATIVE_TAB.get()) {
             for (AcceleratorTier tier : AcceleratorTier.values()) {
-                event.accept(SophisticatedAccelerator.ACCELERATORS_STORAGE.get(tier));
+                event.accept(SophisticatedAccelerator.ACCELERATORS_STORAGE.get(tier).get());
             }
         }
     }

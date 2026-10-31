@@ -1,0 +1,55 @@
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+license = "${mod_license}"
+
+[[mods]]
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+authors = "${mod_authors}"
+description = "${mod_description}"
+
+[[mixins]]
+config = "soph_accel.mixins.json"
+
+[[dependencies.soph_accel]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.soph_accel]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.soph_accel]]
+modId = "sophisticatedcore"
+type = "required"
+versionRange = "[1.5.21,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.soph_accel]]
+modId = "sophisticatedbackpacks"
+type = "optional"
+versionRange = "[3.26.18,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.soph_accel]]
+modId = "sophisticatedstorage"
+type = "optional"
+versionRange = "[1.6.11,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.soph_accel]]
+modId = "farmersbp"
+type = "optional"
+versionRange = "[2.0.0-beta,)"
+ordering = "AFTER"
+side = "BOTH"

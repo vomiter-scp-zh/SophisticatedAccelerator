@@ -1,110 +1,74 @@
 plugins {
+    id 'java-library'
     id 'eclipse'
     id 'idea'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.spongepowered.mixin' version '0.7.+'
-    id 'com.vomiter.forge-base' version "0.1.0"
-    id 'com.vomiter.dev-runtime' version "0.1.0"
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.120'
 }
-
-vomiterMod {
-    modId = mod_id
-    // 需要的話可以關掉某些功能
-    // enableMixinExtras = false
-    // enableDevJar = false
-}
-
-// Datagen output is committed and included in development runs and packaged jars.
-sourceSets.main.resources.srcDir 'src/generated/resources'
 
 version = mod_version
 group = mod_group_id
-base { archivesName = mod_id }
+base { archivesName = "${mod_id}-${minecraft_version}" }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+sourceSets.main.resources.srcDir 'src/generated/resources'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-    copyIdeResources = true
-}
-
-apply from: 'gradle/mixin.gradle'
-
-minecraft {
-    runs {
-        configureEach {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'info'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.debug.export', 'true'
-        }
-
-        client {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                    source sourceSets.test
-                }
-            }
-        }
-
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-            mods { "${mod_id}" { source sourceSets.main } }
-        }
-
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            mods { "${mod_id}" { source sourceSets.main } }
-        }
-
-        data {
-            workingDirectory project.file('run')
-            property 'mixin.env.disable',        'true'
-            property 'mixin.env.ignoreRequired', 'true'
-            property 'mixin.env.disableRefMap',  'true'
-
-            args '--mod', mod_id,
-                    '--all',
-                    '--output', file('src/generated/resources/'),
-                    '--existing', file('src/main/resources/')
-
-            mods { "${mod_id}" { source sourceSets.main } }
-        }
-    }
-}
-tasks.withType(JavaExec).configureEach {
-    standardInput = System.in
-}
-
-/*
 repositories {
     maven {
-        url "https://cursemaven.com"
-        content { includeGroup "curse.maven" }
+        url = 'https://cursemaven.com'
+        content { includeGroup 'curse.maven' }
     }
-    maven { url "https://maven.blamejared.com" }
 }
- */
 
-apply from: 'gradle/optional-dep.gradle'
+neoForge {
+    version = project.neo_version
+    runs {
+        client { client() }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+        gameTestServer { type = 'gameTestServer' }
+        data {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all',
+                    '--output', file('src/generated/resources').absolutePath,
+                    '--existing', file('src/main/resources').absolutePath
+        }
+        configureEach {
+            gameDirectory = project.file('run')
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+    }
+    mods {
+        "${mod_id}" { sourceSet sourceSets.main }
+    }
+}
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.4.10'
-    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
-    implementation fg.deobf('curse.maven:sophisticated-core-618298:9151366')
-    implementation fg.deobf('curse.maven:farmers-delight-398521:8765179')
-
-    compileOnly fg.deobf("curse.maven:farmers-sophisticated-backpacks-1712728:9088893")
-    compileOnly fg.deobf('curse.maven:sophisticated-backpacks-422301:9151454')
-    compileOnly fg.deobf("curse.maven:sophisticated-storage-619320:9151530")
-
-    //runtimeOnly fg.deobf("curse.maven:farmers-sophisticated-backpacks-1712728:9088893")
-    //runtimeOnly fg.deobf('curse.maven:sophisticated-backpacks-422301:9151454')
-    //runtimeOnly fg.deobf("curse.maven:sophisticated-storage-619320:9151530")
-
+    implementation "curse.maven:sophisticated-core-618298:${core_file_id}"
+    implementation "curse.maven:sophisticated-backpacks-422301:${backpacks_file_id}"
+    implementation "curse.maven:sophisticated-storage-619320:${storage_file_id}"
+    implementation "curse.maven:farmers-sophisticated-backpacks-1712728:9170082"
+    implementation "curse.maven:farmers-delight-398521:8765184"
 }
 
+var resourceProperties = [
+        mod_id: mod_id, mod_name: mod_name, mod_version: mod_version,
+        mod_license: mod_license, mod_authors: mod_authors, mod_description: mod_description,
+        minecraft_version_range: minecraft_version_range,
+        neo_version_range: neo_version_range, loader_version_range: loader_version_range
+]
+tasks.named('processResources', ProcessResources).configure {
+    inputs.properties resourceProperties
+    filesMatching('META-INF/neoforge.mods.toml') { expand resourceProperties }
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.withType(JavaExec).configureEach { standardInput = System.in }
+java.withSourcesJar()
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) { from components.java }
+    }
+    repositories { maven { url = layout.projectDirectory.dir('mcmodsrepo') } }
+}

@@ -2,7 +2,7 @@ package com.vomiter.soph_accel.data;
 
 import com.vomiter.soph_accel.SophisticatedAccelerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public final class AcceleratorLanguageProvider extends LanguageProvider {
     private final String locale;

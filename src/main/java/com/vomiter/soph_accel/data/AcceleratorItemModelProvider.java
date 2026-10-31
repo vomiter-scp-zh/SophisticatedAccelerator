@@ -3,8 +3,8 @@ package com.vomiter.soph_accel.data;
 import com.vomiter.soph_accel.AcceleratorTier;
 import com.vomiter.soph_accel.SophisticatedAccelerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public final class AcceleratorItemModelProvider extends ItemModelProvider {
     public AcceleratorItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {

@@ -1,7 +1,8 @@
 package com.vomiter.soph_accel.compat;
 
-import com.vomiter.farmersbp.FarmerSBP;
 import com.vomiter.farmersbp.pot.CookingPotWrapper;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import com.vomiter.soph_accel.AccelerationRegistry;
 import com.vomiter.soph_accel.mixin.compat.FarmerCookingPotAccessor;
 import net.minecraft.core.BlockPos;
@@ -14,12 +15,12 @@ import javax.annotation.Nullable;
 public class FarmerCompat {
     public static synchronized void register(){
         AccelerationRegistry.register(
-                FarmerSBP.COOKING_POT.get(),
+                BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("farmersbp", "cooking_pot_upgrade")),
                 FarmerCompat::accelerateCooking
         );
 
         AccelerationRegistry.register(
-                FarmerSBP.AUTOMATIC_COOKING_POT.get(),
+                BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("farmersbp", "automatic_cooking_pot_upgrade")),
                 FarmerCompat::accelerateCooking
         );
     }
@@ -30,14 +31,12 @@ public class FarmerCompat {
                                           BlockPos pos,
                                           int extraTickCount) {
         if (extraTickCount <= 0 || !wrapper.isEnabled() || level.isClientSide
-                || !(wrapper instanceof CookingPotWrapper cookingUpgrade)) {
+                || !(wrapper instanceof CookingPotWrapper cookingUpgrade)
+                || !(wrapper instanceof FarmerCookingPotAccessor accessor)) {
             return;
         }
 
-        if ((Object)cookingUpgrade instanceof FarmerCookingPotAccessor accessor){
-            int cookTime = cookingUpgrade.getCookTime();
-            cookTime += extraTickCount;
-            accessor.soph_accel$setCookTime(cookTime);
-        }
+        int cookTime = cookingUpgrade.getCookTime();
+        accessor.soph_accel$setCookTime((int) Math.min(Integer.MAX_VALUE, (long) cookTime + extraTickCount));
     }
 }

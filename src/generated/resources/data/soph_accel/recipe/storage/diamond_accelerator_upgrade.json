@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "sophisticatedstorage"
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
@@ -12,7 +18,7 @@
       "item": "minecraft:redstone"
     },
     "U": {
-      "item": "soph_accel:gold_accelerator_upgrade"
+      "item": "soph_accel:gold_storage_accelerator_upgrade"
     }
   },
   "pattern": [
@@ -21,7 +27,7 @@
     "MRM"
   ],
   "result": {
-    "item": "soph_accel:diamond_accelerator_upgrade"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "soph_accel:diamond_storage_accelerator_upgrade"
+  }
 }

@@ -4,12 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.server.ServerStoppedEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
+import net.neoforged.bus.api.IEventBus;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -19,8 +17,9 @@ import java.util.Map;
 public final class AcceleratorTickHandler {
 
     static void init(){
-        IEventBus bus = MinecraftForge.EVENT_BUS;
+        IEventBus bus = NeoForge.EVENT_BUS;
         bus.addListener(AcceleratorTickHandler::onServerStopped);
+        bus.addListener(AcceleratorTickHandler::onServerTickPre);
         bus.addListener(AcceleratorTickHandler::onServerTick);
     }
 
@@ -37,12 +36,12 @@ public final class AcceleratorTickHandler {
         }
     }
 
-    public static void onServerTick(TickEvent.ServerTickEvent event) {
+    public static void onServerTickPre(ServerTickEvent.Pre event) {
+        QUEUE.get().pending.clear();
+    }
+
+    public static void onServerTick(ServerTickEvent.Post event) {
         QueueState state = QUEUE.get();
-        if (event.phase == TickEvent.Phase.START) {
-            state.pending.clear();
-            return;
-        }
         ArrayList<PendingTick> work = new ArrayList<>(state.pending.values());
         state.pending.clear();
         state.draining = true;

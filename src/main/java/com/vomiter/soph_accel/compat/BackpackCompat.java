@@ -4,7 +4,7 @@ import com.vomiter.soph_accel.AccelerationRegistry;
 import com.vomiter.soph_accel.AcceleratorTier;
 import com.vomiter.soph_accel.SophisticatedAccelerator;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems;
 
 import static com.vomiter.soph_accel.SophisticatedAccelerator.ACCELERATORS;
@@ -25,9 +25,9 @@ public class BackpackCompat {
     }
 
     public static void addCreativeTabContents(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey().equals(ModItems.CREATIVE_TAB.getKey())) {
+        if (event.getTab() == ModItems.CREATIVE_TAB.get()) {
             for (AcceleratorTier tier : AcceleratorTier.values()) {
-                event.accept(SophisticatedAccelerator.ACCELERATORS.get(tier));
+                event.accept(SophisticatedAccelerator.ACCELERATORS.get(tier).get());
             }
         }
     }

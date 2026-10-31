@@ -5,18 +5,16 @@ import com.vomiter.soph_accel.compat.FarmerCompat;
 import com.vomiter.soph_accel.compat.StorageCompat;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.Registries;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.p3pp3rf1y.sophisticatedcore.upgrades.IUpgradeCountLimitConfig;
 import net.p3pp3rf1y.sophisticatedcore.upgrades.UpgradeGroup;
 import org.jetbrains.annotations.NotNull;
@@ -27,9 +25,9 @@ import java.util.Map;
 @Mod(SophisticatedAccelerator.MOD_ID)
 public final class SophisticatedAccelerator {
     public static final String MOD_ID = "soph_accel";
-    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
-    public static final Map<AcceleratorTier, RegistryObject<AcceleratorUpgradeItem>> ACCELERATORS = new EnumMap<>(AcceleratorTier.class);
-    public static final Map<AcceleratorTier, RegistryObject<AcceleratorUpgradeItem>> ACCELERATORS_STORAGE = new EnumMap<>(AcceleratorTier.class);
+    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, MOD_ID);
+    public static final Map<AcceleratorTier, DeferredHolder<Item, AcceleratorUpgradeItem>> ACCELERATORS = new EnumMap<>(AcceleratorTier.class);
+    public static final Map<AcceleratorTier, DeferredHolder<Item, AcceleratorUpgradeItem>> ACCELERATORS_STORAGE = new EnumMap<>(AcceleratorTier.class);
 
     private static final IUpgradeCountLimitConfig LIMITS = new IUpgradeCountLimitConfig() {
         @Override
@@ -53,8 +51,7 @@ public final class SophisticatedAccelerator {
         }
     }
 
-    public SophisticatedAccelerator() {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    public SophisticatedAccelerator(IEventBus bus, ModContainer container) {
         ITEMS.register(bus);
         if (ModList.get().isLoaded("sophisticatedbackpacks")){
             bus.addListener(BackpackCompat::addCreativeTabContents);
@@ -65,7 +62,7 @@ public final class SophisticatedAccelerator {
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::loadComplete);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AcceleratorConfig.SPEC);
+        container.registerConfig(ModConfig.Type.COMMON, AcceleratorConfig.SPEC);
         AcceleratorTickHandler.init();
     }
 

@@ -4,13 +4,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.p3pp3rf1y.sophisticatedcore.upgrades.IUpgradeCountLimitConfig;
 import net.p3pp3rf1y.sophisticatedcore.upgrades.UpgradeItemBase;
 import net.p3pp3rf1y.sophisticatedcore.upgrades.UpgradeType;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public final class AcceleratorUpgradeItem extends UpgradeItemBase<AcceleratorUpgradeWrapper> {
@@ -34,7 +33,7 @@ public final class AcceleratorUpgradeItem extends UpgradeItemBase<AcceleratorUpg
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, List<Component> tooltip, @NotNull TooltipFlag flag) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, List<Component> tooltip, @NotNull TooltipFlag flag) {
         tooltip.add(Component.translatable("item.soph_accel.accelerator_upgrade.tooltip").withStyle(ChatFormatting.DARK_GRAY));
         // SERVER config is world-specific and may not be loaded in the creative menu/title screen.
         int interval = AcceleratorConfig.SPEC.isLoaded() ? AcceleratorConfig.interval(tier) : tier.defaultInterval();
